@@ -14,22 +14,22 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #ffffff;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
-  /* Полноэкранный красивый фон */
+  /* Полноэкранный фон */
   .site-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     box-sizing: border-box;
     padding: 40px 60px;
     background: radial-gradient(circle at 75% 20%, #170d33 0%, #060410 45%, #020205 100%);
     position: relative;
   }
   
-  /* Высокотехнологичная сетка на весь экран */
+  /* Фоновая сетка */
   .grid-overlay {
     position: absolute;
     top: 0;
@@ -37,8 +37,8 @@
     width: 100%;
     height: 100%;
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
     background-size: 55px 55px;
     pointer-events: none;
     z-index: 1;
@@ -55,7 +55,7 @@
     flex-grow: 1;
   }
   
-  /* Строгая шапка */
+  /* Шапка */
   .header {
     display: flex;
     justify-content: flex-start;
@@ -72,14 +72,14 @@
     letter-spacing: 1.5px;
   }
   
-  /* Контент строго по центру */
+  /* Главный блок */
   .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     margin: auto 0; 
-    padding: 40px 0;
+    padding: 60px 0 100px 0;
   }
   
   .badge-container {
@@ -164,11 +164,90 @@
     transform: translateY(-1px);
   }
 
+  /* БЛОК НАШИ ОСОБЕННОСТИ */
+  .features-section {
+    padding: 100px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(to bottom, transparent, #090714);
+  }
+
+  .section-title {
+    font-size: 38px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: -0.5px;
+  }
+
+  /* Галерея скриншотов софта */
+  .screenshot-gallery {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .screenshot-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    max-width: 580px;
+  }
+
+  .screenshot-card:hover {
+    border-color: rgba(82, 142, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(82, 142, 255, 0.1);
+    transform: translateY(-5px);
+  }
+
+  .screenshot-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Карточки фишек софта */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .feature-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .feature-item h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    color: #8cb4ff;
+  }
+
+  .feature-item p {
+    font-size: 15px;
+    color: #8fa0af;
+    margin: 0;
+    line-height: 1.5;
+  }
+
   @media (max-width: 768px) {
     h1 { font-size: 36px; }
+    .section-title { font-size: 28px; }
     .header { justify-content: center; }
     .badge-container { flex-direction: column; align-items: center; gap: 8px; }
     .site-container { padding: 20px; }
+    .screenshot-gallery { gap: 15px; }
   }
 </style>
 </head>
@@ -196,6 +275,35 @@
         <a href="https://discord.gg/WM98SKhwSD" target="_blank" class="btn btn-secondary">Узнать больше</a>
       </div>
     </main>
+
+    <section class="features-section">
+      <h2 class="section-title">Наши особенности</h2>
+      
+      <div class="screenshot-gallery">
+        <div class="screenshot-card">
+          <img src="1.png" alt="Интерфейс софта Moscow Tools">
+        </div>
+        <div class="screenshot-card">
+          <img src="2.jpg" alt="Панель настроек Moscow Tools">
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <h3>Полная автоматизация</h3>
+          <p>Встроенные скрипты и горячие клавиши ускоряют рутинную работу модератора и лидера в разы, освобождая время для важного.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Разработано для Moscow RP</h3>
+          <p>Утилита полностью адаптирована под нужды и внутренние системы нашего проекта, обеспечивая 100% совместимость.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Эксклюзивно на ПК</h3>
+          <p>Ориентировано на компьютерный интерфейс, что гарантирует максимальную производительность, стабильность и отсутствие вылетов.</p>
+        </div>
+      </div>
+    </section>
+
   </div>
 </div>
 
