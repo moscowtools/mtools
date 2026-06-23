@@ -179,14 +179,11 @@
     letter-spacing: -0.5px;
   }
 
-  /* Галерея скриншотов софта */
+  /* Контейнер для скриншота */
   .screenshot-gallery {
     display: flex;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 30px;
     margin-bottom: 60px;
     justify-content: center;
-    flex-wrap: wrap;
   }
 
   .screenshot-card {
@@ -196,7 +193,8 @@
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     transition: all 0.3s ease;
-    max-width: 580px;
+    max-width: 700px; /* Сделали скриншот чуть покрупнее, так как он один */
+    width: 100%;
   }
 
   .screenshot-card:hover {
@@ -247,7 +245,6 @@
     .header { justify-content: center; }
     .badge-container { flex-direction: column; align-items: center; gap: 8px; }
     .site-container { padding: 20px; }
-    .screenshot-gallery { gap: 15px; }
   }
 </style>
 </head>
@@ -257,10 +254,12 @@
   <div class="grid-overlay"></div>
   
   <div class="content-wrapper">
+    <!-- Шапка -->
     <header class="header">
       <a href="#" class="logo">MOSCOW TOOLS</a>
     </header>
     
+    <!-- Главный экран -->
     <main class="hero">
       <div class="badge-container">
         <div class="badge">♡ Выбор пользователей</div>
@@ -276,18 +275,18 @@
       </div>
     </main>
 
+    <!-- Раздел НАШИ ОСОБЕННОСТИ -->
     <section class="features-section">
       <h2 class="section-title">Наши особенности</h2>
       
+      <!-- Только один рабочий скриншот -->
       <div class="screenshot-gallery">
         <div class="screenshot-card">
           <img src="1.png" alt="Интерфейс софта Moscow Tools">
         </div>
-        <div class="screenshot-card">
-          <img src="2.jpg" alt="Панель настроек Moscow Tools">
-        </div>
       </div>
 
+      <!-- Фишки -->
       <div class="features-grid">
         <div class="feature-item">
           <h3>Полная автоматизация</h3>
