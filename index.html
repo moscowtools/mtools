@@ -4,307 +4,616 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moscow Tools — Софт для администрации Moscow RP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100vh;
-    background-color: #050505;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #ffffff;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-  }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* Полноэкранный фон */
-  .site-container {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding: 40px 60px;
-    background: radial-gradient(circle at 75% 20%, #170d33 0%, #060410 45%, #020205 100%);
-    position: relative;
-  }
-  
-  /* Фоновая сетка */
-  .grid-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-    background-size: 55px 55px;
-    pointer-events: none;
-    z-index: 1;
-  }
+:root {
+  --bg: #06060a;
+  --bg-card: #0c0c14;
+  --bg-card-hover: #10101c;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(82,142,255,0.25);
+  --accent: #528eff;
+  --accent-glow: rgba(82,142,255,0.15);
+  --accent2: #a855f7;
+  --accent2-glow: rgba(168,85,247,0.12);
+  --text: #f0f0f5;
+  --text2: #8a8fa8;
+  --text3: #555a70;
+  --green: #22c55e;
+  --green-glow: rgba(34,197,94,0.12);
+}
 
-  .content-wrapper {
-    width: 100%;
-    max-width: 1300px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  /* Шапка */
-  .header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    padding-bottom: 60px;
-  }
-  
-  .logo {
-    font-size: 26px;
-    font-weight: 900;
-    color: #ffffff;
-    text-decoration: none;
-    letter-spacing: 1.5px;
-  }
-  
-  /* Главный блок */
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: auto 0; 
-    padding: 60px 0 100px 0;
-  }
-  
-  .badge-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-  }
+html { scroll-behavior: smooth; }
 
-  .badge {
-    display: inline-block;
-    padding: 6px 18px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    font-size: 13px;
-    color: #a29dbd;
-  }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
 
-  .badge-pc {
-    border-color: rgba(82, 142, 255, 0.3);
-    color: #8cb4ff;
-    background-color: rgba(82, 142, 255, 0.02);
-  }
-  
-  h1 {
-    font-size: 56px;
-    font-weight: 800;
-    margin: 0 0 24px 0;
-    letter-spacing: -1px;
-    line-height: 1.2;
-    max-width: 1000px;
-  }
-  
-  .accent-text {
-    color: #528eff;
-    text-shadow: 0 0 40px rgba(82, 142, 255, 0.2);
-  }
-  
-  .description {
-    font-size: 17px;
-    color: #8fa0af;
-    max-width: 650px;
-    margin: 0 auto 45px auto;
-    line-height: 1.6;
-  }
-  
-  .btn-container {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .btn {
-    display: inline-block;
-    padding: 16px 45px;
-    font-weight: 600;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 15px;
-    transition: all 0.2s ease;
-  }
-  
-  .btn-primary {
-    background-color: #2563eb;
-    color: #ffffff;
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
-  }
+/* ===== BACKGROUND ===== */
+.bg-gradient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 70% -10%, rgba(82,142,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(168,85,247,0.06) 0%, transparent 50%);
+}
 
-  .btn-primary:hover {
-    background-color: #3b82f6;
-    transform: translateY(-1px);
-  }
-  
-  .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-  }
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 70%);
+}
 
-  .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
-  }
+.noise {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  /* БЛОК НАШИ ОСОБЕННОСТИ */
-  .features-section {
-    padding: 100px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    background: linear-gradient(to bottom, transparent, #090714);
-  }
+/* ===== LAYOUT ===== */
+.container {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+}
 
-  .section-title {
-    font-size: 38px;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 60px;
-    letter-spacing: -0.5px;
-  }
+/* ===== HEADER ===== */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  background: rgba(6,6,10,0.7);
+  border-bottom: 1px solid var(--border);
+}
 
-  /* Контейнер для скриншота */
-  .screenshot-gallery {
-    display: flex;
-    margin-bottom: 60px;
-    justify-content: center;
-  }
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
 
-  .screenshot-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
-    max-width: 700px; /* Сделали скриншот чуть покрупнее, так как он один */
-    width: 100%;
-  }
+.logo {
+  font-size: 18px; font-weight: 800; letter-spacing: 1px;
+  color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
 
-  .screenshot-card:hover {
-    border-color: rgba(82, 142, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(82, 142, 255, 0.1);
-    transform: translateY(-5px);
-  }
+.logo-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--accent); display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 16px; color: #fff;
+}
 
-  .screenshot-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+.header-links { display: flex; gap: 8px; }
 
-  /* Карточки фишек софта */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    margin-top: 40px;
-  }
+.header-links a {
+  color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500;
+  padding: 8px 16px; border-radius: 8px; transition: all 0.2s;
+}
 
-  .feature-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-  }
+.header-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 
-  .feature-item h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 12px 0;
-    color: #8cb4ff;
-  }
+.btn-download {
+  background: var(--accent) !important; color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
 
-  .feature-item p {
-    font-size: 15px;
-    color: #8fa0af;
-    margin: 0;
-    line-height: 1.5;
-  }
+.btn-download:hover { background: #3b82f6 !important; transform: translateY(-1px); }
 
-  @media (max-width: 768px) {
-    h1 { font-size: 36px; }
-    .section-title { font-size: 28px; }
-    .header { justify-content: center; }
-    .badge-container { flex-direction: column; align-items: center; gap: 8px; }
-    .site-container { padding: 20px; }
-  }
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 0 80px;
+}
+
+.hero-badges { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
+
+.badge {
+  padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  border: 1px solid var(--border); color: var(--text2);
+  background: rgba(255,255,255,0.02);
+}
+
+.badge-accent {
+  border-color: rgba(82,142,255,0.2); color: var(--accent);
+  background: rgba(82,142,255,0.05);
+}
+
+.badge-green {
+  border-color: rgba(34,197,94,0.2); color: var(--green);
+  background: var(--green-glow);
+}
+
+.badge-purple {
+  border-color: rgba(168,85,247,0.2); color: var(--accent2);
+  background: var(--accent2-glow);
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px); font-weight: 900;
+  letter-spacing: -1.5px; line-height: 1.1;
+  margin-bottom: 40px; max-width: 900px;
+}
+
+.hero h1 .accent { color: var(--accent); text-shadow: 0 0 60px var(--accent-glow); }
+
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all 0.25s; border: none; cursor: pointer;
+}
+
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 24px var(--accent-glow); }
+.btn-primary:hover { background: #3b82f6; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,0.25); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.04); color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+/* ЖЕСТКОЕ СРАВНИВАНИЕ СТАТИСТИКИ HERO */
+.hero-stats {
+  display: flex; gap: 48px; margin-top: 72px; padding-top: 40px;
+  border-top: 1px solid var(--border); justify-content: center;
+}
+
+.stat { 
+  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 150px; /* Фиксированная ширина для ровной сетки */
+}
+.stat-num { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+.stat-label { 
+  font-size: 12px; color: var(--text3); margin-top: 6px; 
+  text-transform: uppercase; letter-spacing: 1px; line-height: 1.4;
+  height: 34px; /* Резервируем ровно 2 строки высоты, чтобы ничего не прыгало */
+  display: flex; align-items: flex-start; justify-content: center;
+}
+
+/* ===== SCREENSHOT ===== */
+.screenshot-section {
+  padding: 80px 0;
+}
+
+.screenshot-wrapper {
+  position: relative; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 120px var(--accent-glow);
+  transition: all 0.4s;
+}
+
+.screenshot-wrapper:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 160px rgba(82,142,255,0.12);
+  transform: translateY(-4px);
+}
+
+.screenshot-wrapper img {
+  width: 100%; display: block;
+}
+
+.screenshot-glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 2px; background: var(--accent);
+  filter: blur(20px); opacity: 0.5;
+}
+
+/* ===== FEATURES ===== */
+.features { padding: 100px 0; }
+
+.section-header {
+  text-align: center; margin-bottom: 64px;
+}
+
+.section-tag {
+  display: inline-block; padding: 5px 14px; border-radius: 16px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--accent); background: rgba(82,142,255,0.08);
+  border: 1px solid rgba(82,142,255,0.15); margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+  letter-spacing: -0.5px; margin-bottom: 16px;
+}
+
+.section-desc { font-size: 16px; color: var(--text2); max-width: 520px; margin: 0 auto; }
+
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 32px; transition: all 0.3s;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+  border-color: var(--border-hover); background: var(--bg-card-hover);
+  transform: translateY(-3px);
+}
+
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 20px; flex-shrink: 0;
+  background: rgba(82,142,255,0.08); border: 1px solid rgba(82,142,255,0.12);
+}
+
+.feature-icon.purple { background: var(--accent2-glow); border-color: rgba(168,85,247,0.15); }
+.feature-icon.green { background: var(--green-glow); border-color: rgba(34,197,94,0.15); }
+
+.feature-card h3 {
+  font-size: 16px; font-weight: 700; margin-bottom: 10px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* СТРОГОЕ СРАВНИВАНИЕ ВЫСОТЫ ТЕКСТА КАРТОЧЕК */
+.feature-card p {
+  font-size: 14px; color: var(--text2); line-height: 1.5;
+  height: 42px; /* Ровно две строки */
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ===== TECH STACK ===== */
+.tech { padding: 80px 0; border-top: 1px solid var(--border); }
+
+.tech-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px; margin-top: 48px;
+}
+
+.tech-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; text-align: center;
+  transition: all 0.25s;
+}
+
+.tech-item:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+.tech-item .icon { font-size: 28px; margin-bottom: 12px; }
+.tech-item .name { font-size: 14px; font-weight: 600; }
+.tech-item .desc { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+/* ===== HOTKEYS ===== */
+.hotkeys { padding: 80px 0; }
+
+.grid-bg, .bg-gradient, .noise { pointer-events: none; }
+
+.hotkey-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px; margin-top: 48px;
+}
+
+.hotkey-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px 28px;
+  display: flex; align-items: center; gap: 16px;
+  transition: all 0.25s;
+}
+
+.hotkey-card:hover { border-color: var(--border-hover); }
+
+.hotkey-key {
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--accent); white-space: nowrap; font-family: 'Inter', monospace;
+}
+
+.hotkey-card .label { font-size: 14px; color: var(--text2); }
+
+/* ===== CTA ===== */
+.cta {
+  padding: 100px 0; text-align: center;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(82,142,255,0.06), rgba(168,85,247,0.04));
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 80px 40px; position: relative; overflow: hidden;
+}
+
+.cta-box::before {
+  content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.cta-box h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin-bottom: 16px; }
+.cta-box p { font-size: 16px; color: var(--text2); margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border); padding: 40px 0;
+  text-align: center; color: var(--text3); font-size: 13px;
+}
+
+footer a { color: var(--text2); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .header-inner { padding: 0 20px; }
+  .hero { padding: 100px 0 60px; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+  .stat { width: 45%; } /* На мобильных выстраиваем их парами одинаковой ширины */
+  .features-grid { grid-template-columns: 1fr; }
+  .cta-box { padding: 48px 24px; }
+  .header-links a:not(.btn-download) { display: none; }
+}
 </style>
 </head>
 <body>
 
-<div class="site-container">
-  <div class="grid-overlay"></div>
-  
-  <div class="content-wrapper">
-    <!-- Шапка -->
-    <header class="header">
-      <a href="#" class="logo">MOSCOW TOOLS</a>
-    </header>
-    
-    <!-- Главный экран -->
-    <main class="hero">
-      <div class="badge-container">
-        <div class="badge">♡ Выбор пользователей</div>
-        <div class="badge badge-pc">💻 Доступно только на ПК</div>
-      </div>
-      <h1>Программное обеспечение<br>для администрации <span class="accent-text">Moscow RP</span></h1>
-      <p class="description">
-        Используйте свои возможности на максимум. Наш официальный софт Moscow Tools обеспечивает полную автоматизацию и удобную работу для администраторов проекта.
-      </p>
-      <div class="btn-container">
-        <a href="https://drive.google.com/file/d/1HWOiVmqe9JMIeGnqtrhGoJixpXLXtTbZ/view?usp=sharing" target="_blank" class="btn btn-primary">Скачать</a>
-        <a href="https://discord.gg/WM98SKhwSD" target="_blank" class="btn btn-secondary">Узнать больше</a>
-      </div>
-    </main>
+<div class="bg-gradient"></div>
+<div class="grid-bg"></div>
+<div class="noise"></div>
 
-    <!-- Раздел НАШИ ОСОБЕННОСТИ -->
-    <section class="features-section">
-      <h2 class="section-title">Наши особенности</h2>
-      
-      <!-- Только один рабочий скриншот -->
-      <div class="screenshot-gallery">
-        <div class="screenshot-card">
-          <img src="1.png" alt="Интерфейс софта Moscow Tools">
-        </div>
-      </div>
-
-      <!-- Фишки -->
-      <div class="features-grid">
-        <div class="feature-item">
-          <h3>Полная автоматизация</h3>
-          <p>Встроенные скрипты и горячие клавиши ускоряют рутинную работу модератора и лидера в разы, освобождая время для важного.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Разработано для Moscow RP</h3>
-          <p>Утилита полностью адаптирована под нужды и внутренние системы нашего проекта, обеспечивая 100% совместимость.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Эксклюзивно на ПК</h3>
-          <p>Ориентировано на компьютерный интерфейс, что гарантирует максимальную производительность, стабильность и отсутствие вылетов.</p>
-        </div>
-      </div>
-    </section>
-
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">M</div>
+      MOSCOW TOOLS
+    </a>
+    <div class="header-links">
+      <a href="#features">Возможности</a>
+      <a href="#tech">Стек</a>
+      <a href="https://discord.gg/WM98SKhwSD" target="_blank">Discord</a>
+      <a href="https://drive.google.com/file/d/1HWOiVmqe9JMIeGnqtrhGoJixpXLXtTbZ/view?usp=sharing" target="_blank" class="btn btn-download">Скачать</a>
+    </div>
   </div>
-</div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge badge-accent">v1.0</span>
+      <span class="badge badge-green">Работает</span>
+      <span class="badge badge-purple">Python + tkinter</span>
+      <span class="badge">Windows</span>
+    </div>
+    <h1>Мощный софт для<br>администрации <span class="accent">Moscow RP</span></h1>
+    <div class="hero-buttons">
+      <a href="https://drive.google.com/file/d/1HWOiVmqe9JMIeGnqtrhGoJixpXLXtTbZ/view?usp=sharing" target="_blank" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Скачать бесплатно
+      </a>
+      <a href="https://discord.gg/WM98SKhwSD" target="_blank" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Discord
+      </a>
+    </div>
+    
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Страниц</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Темы оформления</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Discord интеграция</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Зависимостей от браузера</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screenshot-section">
+  <div class="container">
+    <div class="screenshot-wrapper">
+      <img src="1.png" alt="Интерфейс Moscow Tools">
+      <div class="screenshot-glow"></div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Возможности</div>
+      <h2 class="section-title">Всё для администрирования</h2>
+      <p class="section-desc">От мониторинга до автоматизации — каждый инструмент под рукой</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Дашборд</h3>
+        <p>Статистика сервера в реальном времени: онлайн, состав администрации, нагрузка. Автообновление каждые 5 секунд.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">⌨️</div>
+        <h3>Команды</h3>
+        <p>Все команды ER:LC с подробными описаниями. Быстрый поиск, фильтрация по категориям и отправка через Enter.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">👥</div>
+        <h3>Игроки</h3>
+        <p>Список игроков в сети с отображением ролей. Быстрое копирование никнеймов и отправка команд на игрока.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Логи убийств</h3>
+        <p>Полная лента килл-логов с именами, оружием и координатами. Удобный поиск и быстрый экспорт в .txt.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">📋</div>
+        <h3>Логи команд</h3>
+        <p>История использования команд: кто, кому и когда их выдал. Фильтрация по администраторам и поиск по содержимому.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">🕐</div>
+        <h3>История</h3>
+        <p>Последние 50 отправленных команд с точными таймстампами. Повторная отправка в один клик.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>4 темы оформления</h3>
+        <p>Premium Green, Ocean Blue, Royal Purple и Sunset Gold. Мгновенное переключение интерфейса.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">🔗</div>
+        <h3>Discord Rich Presence</h3>
+        <p>Отображение текущей страницы приложения и вашей роли в статусе Discord. Автоматическое обновление.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">📢</div>
+        <h3>Webhook логи</h3>
+        <p>Каждая отправленная команда автоматически дублируется в нужный Discord-канал через вебхук.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Discord OAuth2</h3>
+        <p>Безопасная авторизация. Проверка наличия роли Администратора или Модератора на сервере.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">⌨️</div>
+        <h3>Горячие клавиши</h3>
+        <p>Клавиши Home и «]» для быстрого скрытия/показа окна. Полная поддержка прямо во время игры.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">💾</div>
+        <h3>Настройки</h3>
+        <p>Сохранение выбранной темы, языка и конфигурации между сессиями. Портативный .exe без установки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tech" id="tech">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Стек</div>
+      <h2 class="section-title">Технологии</h2>
+      <p class="section-desc">Надёжный стек для стабильной работы на Windows</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="icon">🐍</div>
+        <div class="name">Python 3.13</div>
+        <div class="desc">Основной язык</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">🖼️</div>
+        <div class="name">tkinter</div>
+        <div class="desc">GUI фреймворк</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">🤖</div>
+        <div class="name">discord.py 2.7</div>
+        <div class="desc">Discord интеграция</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">🎮</div>
+        <div class="name">pydirectinput</div>
+        <div class="desc">Ввод в игру</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">⌨️</div>
+        <div class="name">keyboard</div>
+        <div class="desc">Горячие клавиши</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">🌐</div>
+        <div class="name">requests</div>
+        <div class="desc">API запросы</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">📡</div>
+        <div class="name">pypresence</div>
+        <div class="desc">Discord RPC</div>
+      </div>
+      <div class="tech-item">
+        <div class="icon">📦</div>
+        <div class="name">PyInstaller</div>
+        <div class="desc">Сборка .exe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hotkeys">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Управление</div>
+      <h2 class="section-title">Горячие клавиши</h2>
+      <p class="section-desc">Управляйте приложением не отрываясь от игры</p>
+    </div>
+    <div class="hotkey-grid">
+      <div class="hotkey-card">
+        <span class="hotkey-key">Home</span>
+        <span class="label">Скрыть / Показать окно</span>
+      </div>
+      <div class="hotkey-card">
+        <span class="hotkey-key">]</span>
+        <span class="label">Скрыть / Показать окно</span>
+      </div>
+      <div class="hotkey-card">
+        <span class="hotkey-key">Enter</span>
+        <span class="label">Отправить команду</span>
+      </div>
+      <div class="hotkey-card">
+        <span class="hotkey-key">Ctrl + C</span>
+        <span class="label">Копировать выделенное</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Готов начать?</h2>
+      <p>Скачайте Moscow Tools и упростите администрирование сервера уже сегодня</p>
+      <div class="cta-buttons">
+        <a href="https://drive.google.com/file/d/1HWOiVmqe9JMIeGnqtrhGoJixpXLXtTbZ/view?usp=sharing" target="_blank" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Скачать v1.0
+        </a>
+        <a href="https://discord.gg/WM98SKhwSD" target="_blank" class="btn btn-ghost">Присоединиться к Discord</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>MOSCOW TOOLS &copy; 2026 &mdash; Разработано для <a href="https://discord.gg/WM98SKhwSD" target="_blank">Moscow RP</a></p>
+  </div>
+</footer>
 
 </body>
 </html>
