@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moscow Tools — Софт для администрации</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #050505;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  /* Полноэкранный красивый фон */
+  .site-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 40px 60px;
+    background: radial-gradient(circle at 75% 20%, #170d33 0%, #060410 45%, #020205 100%);
+    position: relative;
+  }
+  
+  /* Высокотехнологичная сетка на весь экран */
+  .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 55px 55px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  /* Идеальная шапка */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 60px;
+  }
+  
+  .logo {
+    font-size: 26px;
+    font-weight: 900;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 14px;
+  }
+  
+  .nav-links a {
+    display: inline-block;
+    padding: 10px 22px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+  
+  /* Контент строго по центру */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto 0; 
+    padding: 40px 0;
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    font-size: 13px;
+    color: #a29dbd;
+    margin-bottom: 25px;
+  }
+  
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    margin: 0 0 24px 0;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    max-width: 1000px;
+  }
+  
+  .accent-text {
+    color: #528eff;
+    text-shadow: 0 0 40px rgba(82, 142, 255, 0.2);
+  }
+  
+  .description {
+    font-size: 17px;
+    color: #8fa0af;
+    max-width: 650px;
+    margin: 0 auto 45px auto;
+    line-height: 1.6;
+  }
+  
+  .btn-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 16px 45px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+  }
+
+  .btn-primary:hover {
+    background-color: #3b82f6;
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 36px; }
+    .header { flex-direction: column; gap: 20px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
+    .site-container { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-container">
+  <div class="grid-overlay"></div>
+  
+  <div class="content-wrapper">
+    <header class="header">
+      <a href="#" class="logo">MOSCOW TOOLS</a>
+      <div class="nav-links">
+        <a href="#">Личный кабинет</a>
+        <a href="#">Админская система</a>
+        <a href="#">Лидерская система</a>
+      </div>
+    </header>
+    
+    <main class="hero">
+      <div class="badge">♡ Выбор пользователей</div>
+      <h1>Программное обеспечение<br><span class="accent-text">для администрации Moscow Tools</span></h1>
+      <p class="description">
+        Используйте свои возможности администратора по максимуму — с любого устройства и на всех поддерживаемых проектах. Наш софт обеспечивает полную автоматизацию.
+      </p>
+      <div class="btn-container">
+        <a href="#" class="btn btn-primary">Скачать</a>
+        <a href="#" class="btn btn-secondary">Узнать больше</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>
