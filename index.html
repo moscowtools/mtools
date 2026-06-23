@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moscow Tools — Софт для администрации</title>
+<title>Moscow Tools — Софт для администрации Moscow RP</title>
 <style>
   html, body {
     margin: 0;
@@ -55,10 +55,10 @@
     flex-grow: 1;
   }
   
-  /* Идеальная шапка */
+  /* Строгая шапка */
   .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     padding-bottom: 60px;
@@ -72,31 +72,6 @@
     letter-spacing: 1.5px;
   }
   
-  .nav-links {
-    display: flex;
-    gap: 14px;
-  }
-  
-  .nav-links a {
-    display: inline-block;
-    padding: 10px 22px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-  }
-
-  .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-  }
-  
   /* Контент строго по центру */
   .hero {
     display: flex;
@@ -107,6 +82,12 @@
     padding: 40px 0;
   }
   
+  .badge-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
   .badge {
     display: inline-block;
     padding: 6px 18px;
@@ -115,7 +96,12 @@
     border-radius: 20px;
     font-size: 13px;
     color: #a29dbd;
-    margin-bottom: 25px;
+  }
+
+  .badge-pc {
+    border-color: rgba(82, 142, 255, 0.3);
+    color: #8cb4ff;
+    background-color: rgba(82, 142, 255, 0.02);
   }
   
   h1 {
@@ -175,12 +161,13 @@
   .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
     h1 { font-size: 36px; }
-    .header { flex-direction: column; gap: 20px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; }
+    .header { justify-content: center; }
+    .badge-container { flex-direction: column; align-items: center; gap: 8px; }
     .site-container { padding: 20px; }
   }
 </style>
@@ -193,22 +180,20 @@
   <div class="content-wrapper">
     <header class="header">
       <a href="#" class="logo">MOSCOW TOOLS</a>
-      <div class="nav-links">
-        <a href="#">Личный кабинет</a>
-        <a href="#">Админская система</a>
-        <a href="#">Лидерская система</a>
-      </div>
     </header>
     
     <main class="hero">
-      <div class="badge">♡ Выбор пользователей</div>
-      <h1>Программное обеспечение<br><span class="accent-text">для администрации Moscow Tools</span></h1>
+      <div class="badge-container">
+        <div class="badge">♡ Выбор пользователей</div>
+        <div class="badge badge-pc">💻 Доступно только на ПК</div>
+      </div>
+      <h1>Программное обеспечение<br>для администрации <span class="accent-text">Moscow RP</span></h1>
       <p class="description">
-        Используйте свои возможности администратора по максимуму — с любого устройства и на всех поддерживаемых проектах. Наш софт обеспечивает полную автоматизацию.
+        Используйте свои возможности на максимум. Наш официальный софт Moscow Tools обеспечивает полную автоматизацию и удобную работу для администраторов проекта.
       </p>
       <div class="btn-container">
-        <a href="#" class="btn btn-primary">Скачать</a>
-        <a href="#" class="btn btn-secondary">Узнать больше</a>
+        <a href="https://drive.google.com/file/d/1HWOiVmqe9JMIeGnqtrhGoJixpXLXtTbZ/view?usp=sharing" target="_blank" class="btn btn-primary">Скачать</a>
+        <a href="https://discord.gg/WM98SKhwSD" target="_blank" class="btn btn-secondary">Узнать больше</a>
       </div>
     </main>
   </div>
